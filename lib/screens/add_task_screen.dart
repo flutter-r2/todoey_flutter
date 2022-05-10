@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../models/task_data.dart';
+
+// ignore: use_key_in_widget_constructors
 class AddTaskScreen extends StatelessWidget {
-  final void Function(String) addTask;
-
-  // ignore: use_key_in_widget_constructors
-  const AddTaskScreen({required this.addTask});
-
   @override
   Widget build(BuildContext context) {
     String taskName = '';
@@ -45,7 +44,10 @@ class AddTaskScreen extends StatelessWidget {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.lightBlueAccent,
               ),
-              onPressed: () => addTask(taskName),
+              onPressed: () {
+                Provider.of<TaskData>(context, listen: false).addTask(taskName);
+                Navigator.pop(context);
+              },
             ),
           ],
         ),
